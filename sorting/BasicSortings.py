@@ -38,6 +38,24 @@ def insertion_sorting(numbers):
     return result
 
 
+def insertion_sorting_v2(numbers):
+    result = numbers[:]
+    processed = 0
+    while processed < len(result):
+        pos = 0
+        for i in range(processed):
+            if result[i] > result[processed]:
+                break
+            pos += 1
+
+        num = result[processed]
+        del result[processed]
+        result = result[:pos] + [num] + result[pos:]
+        processed += 1
+
+    return result
+
+
 def bubble_sorting(numbers):
     result = numbers[:]
 
@@ -64,6 +82,16 @@ if __name__ == '__main__':
     print('Insertion sorting took {} secs'.format(elapse))
 
     elapse = time.time()
+    result = insertion_sorting_v2(numbers_to_sort)
+    elapse = time.time() - elapse
+    print('Insertion sorting v2 took {} secs'.format(elapse))
+
+    elapse = time.time()
     result = bubble_sorting(numbers_to_sort)
     elapse = time.time() - elapse
     print('Bubble sorting took {} secs'.format(elapse))
+
+    elapse = time.time()
+    result = sorted(numbers_to_sort)
+    elapse = time.time() - elapse
+    print('Built-in sorting took {} secs'.format(elapse))
